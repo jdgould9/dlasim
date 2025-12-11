@@ -1,9 +1,11 @@
-package app.dlav3;
+package app.dlav3.view;
 
+import app.dlav3.config.ColorConfig;
+import app.dlav3.config.RenderConfig;
+import app.dlav3.model.Simulation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -29,11 +31,15 @@ public class SimulationView {
         this.simulationStage = createDlaStage();
     }
 
+    public void setRenderConfig(RenderConfig renderConfig){
+        this.renderConfig=renderConfig;
+    }
+    public void setColorConfig(ColorConfig colorConfig){
+        this.colorConfig=colorConfig;
+    }
+
     public Stage getStage() {
         return simulationStage;
-    }
-    public Canvas getCanvas(){
-        return dlaCanvas;
     }
 
     public Stage createDlaStage() {
@@ -56,7 +62,7 @@ public class SimulationView {
         if (renderConfig.renderStuckParticles) {
             drawStuckParticles(particleField, findMinZAndMaxZ(particleField), colorConfig, dlaCanvasGraphicsContext);
         }
-        if (renderConfig.renderSeeds) {
+        if (renderConfig.renderSeedParticles) {
             drawSeeds(particleField, dlaCanvasGraphicsContext);
         }
         if (renderConfig.renderActiveParticle) {
@@ -64,7 +70,7 @@ public class SimulationView {
         }
     }
 
-    public void drawStuckParticles(int[][] particleField, Pair<Integer, Integer> minZMaxZ, ColorConfig colorConfig, GraphicsContext gc) {
+    private void drawStuckParticles(int[][] particleField, Pair<Integer, Integer> minZMaxZ, ColorConfig colorConfig, GraphicsContext gc) {
         int minZ = minZMaxZ.getKey();
         int maxZ = minZMaxZ.getValue();
         for (int r = 0; r < particleField.length; r++) {
@@ -81,7 +87,7 @@ public class SimulationView {
         }
     }
 
-    public javafx.scene.paint.Color calculateGradientColor(javafx.scene.paint.Color lowZColor, javafx.scene.paint.Color highZColor, double normalizedZ, double opacity) {
+    private javafx.scene.paint.Color calculateGradientColor(javafx.scene.paint.Color lowZColor, javafx.scene.paint.Color highZColor, double normalizedZ, double opacity) {
         //result = color1_channel + percent * (color2_channel, and color1_channel) to find gradient
         double gradientRed = lowZColor.getRed() + normalizedZ * (highZColor.getRed() - lowZColor.getRed());
         double gradientGreen = lowZColor.getGreen() + normalizedZ * (highZColor.getGreen() - lowZColor.getGreen());
@@ -90,7 +96,7 @@ public class SimulationView {
         return new javafx.scene.paint.Color(gradientRed, gradientGreen, gradientBlue, opacity);
     }
 
-    public void drawSeeds(int[][] particleField, GraphicsContext gc) {
+    private void drawSeeds(int[][] particleField, GraphicsContext gc) {
         for (int r = 0; r < particleField.length; r++) {
             for (int c = 0; c < particleField[r].length; c++) {
                 int z = particleField[r][c];
@@ -102,7 +108,7 @@ public class SimulationView {
         }
     }
 
-    public void drawActiveParticle(Point activeParticle, GraphicsContext gc) {
+    private void drawActiveParticle(Point activeParticle, GraphicsContext gc) {
         gc.setFill(Color.BLUE);
         gc.fillRect(activeParticle.x * renderConfig.cellSize, activeParticle.y * renderConfig.cellSize, renderConfig.cellSize, renderConfig.cellSize);
     }

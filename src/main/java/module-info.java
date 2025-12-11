@@ -8,5 +8,13 @@ module app.dlav3 {
 
 
     opens app.dlav3 to javafx.fxml;
+    exports app.dlav3.view;
+    opens app.dlav3.view to javafx.fxml;
+    exports app.dlav3.config;
+    opens app.dlav3.config to javafx.fxml;
+    exports app.dlav3.model;
+    opens app.dlav3.model to javafx.fxml;
     exports app.dlav3;
+    exports app.dlav3.controller;
+    opens app.dlav3.controller to javafx.fxml;
 }

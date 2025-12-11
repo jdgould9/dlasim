@@ -1,4 +1,6 @@
-package app.dlav3;
+package app.dlav3.config;
+
+import app.dlav3.model.SeedType;
 
 /*
 Parameters
@@ -30,6 +32,17 @@ public class SimulationConfig{
         this.maxRandomWalkAttempts = maxRandomWalkAttempts;
         this.maxFillRatio = maxFillRatio;
         this.particleStickingProbability = particleStickingProbability;
+    }
+
+    public SimulationConfig () {
+        simulationWidth=300;
+        simulationHeight=300;
+        randomSeed=-1L;
+        numberOfSeeds=100;
+        maxIterations=400_000_000L;
+        maxRandomWalkAttempts=2000;
+        maxFillRatio=0.3;
+        particleStickingProbability=1.0;
     }
 }
 

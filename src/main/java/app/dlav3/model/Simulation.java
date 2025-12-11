@@ -1,6 +1,6 @@
-package app.dlav3;
+package app.dlav3.model;
 
-import javafx.scene.paint.Color;
+import app.dlav3.config.SimulationConfig;
 
 import java.awt.*;
 import java.util.Random;
@@ -15,6 +15,12 @@ public class Simulation {
     private Point activeParticle;
     private Random random;
     private SimulationConfig simulationConfig;
+
+    private static final int[][] DIRECTIONS = {
+            {-1, -1}, {0, -1}, {1, -1},
+            {-1, 0},           {1, 0},
+            {-1, 1},  {0, 1},  {1, 1}
+    };
 
     /*
     Helpers
@@ -54,15 +60,16 @@ public class Simulation {
                     resetCurrentRandomWalkAttempts();
                 }
             }
-            if (currentIteration % (simulationConfig.maxIterations / 1000) == 0) {
-                System.out.println("Current iteration: " + currentIteration);
-                System.out.println(getFillRatio());
+            if (currentIteration % 100_000 == 0) {
+                System.out.println("Progress: " + currentIteration);
             }
             currentIteration++;
         }
         System.out.println("Ending fill ratio: " + getFillRatio());
         System.out.println("Ending iteration: " + currentIteration);
     }
+
+
 
     private void setRandomSeed() {
         if (simulationConfig.randomSeed == -1L) {
@@ -149,13 +156,9 @@ public class Simulation {
         int x = activeParticle.x;
         int y = activeParticle.y;
 
-        int[][] directions = {
-                {-1, -1}, {0, -1}, {1, -1},
-                {-1, 0}, {1, 0},
-                {-1, 1}, {0, 1}, {1, 1}
-        };
 
-        for (int[] direction : directions) {
+
+        for (int[] direction : DIRECTIONS) {
             int dx = direction[0];
             int dy = direction[1];
             if (isValidPos(x + dx, y + dy) && particleField[x + dx][y + dy] > 0) {

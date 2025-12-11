@@ -1,4 +1,4 @@
-package app.dlav3;
+package app.dlav3.model;
 
 public enum SeedType {
     CENTERPOINT,

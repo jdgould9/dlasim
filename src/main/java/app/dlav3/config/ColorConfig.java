@@ -1,4 +1,4 @@
-package app.dlav3;
+package app.dlav3.config;
 
 import javafx.scene.paint.Color;
 
@@ -15,5 +15,13 @@ public class ColorConfig{
         this.highZColor = highZColor;
         this.backgroundColor = backgroundColor;
         this.opacity = opacity;
+    }
+
+    public ColorConfig(){
+        gradient=true;
+        lowZColor=Color.WHITE;
+        highZColor=Color.RED;
+        backgroundColor=Color.BLUE;
+        opacity=1.0;
     }
 }
