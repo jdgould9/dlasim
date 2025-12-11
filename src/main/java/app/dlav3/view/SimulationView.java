@@ -2,7 +2,6 @@ package app.dlav3.view;
 
 import app.dlav3.config.ColorConfig;
 import app.dlav3.config.RenderConfig;
-import app.dlav3.config.SimulationConfig;
 import app.dlav3.model.Simulation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,16 +21,11 @@ public class SimulationView {
     private Canvas dlaCanvas;
     private GraphicsContext dlaCanvasGraphicsContext;
 
-    private final int WIDTH;
-    private final int HEIGHT;
-
-    public SimulationView(RenderConfig renderConfig, ColorConfig colorConfig, int simulationWidth, int simulationHeight) {
+    public SimulationView(RenderConfig renderConfig, ColorConfig colorConfig) {
         this.renderConfig = renderConfig;
         this.colorConfig = colorConfig;
 
-        this.WIDTH=simulationWidth;
-        this.HEIGHT=simulationHeight;
-        this.dlaCanvas = new Canvas(WIDTH, HEIGHT);
+        this.dlaCanvas = new Canvas(renderConfig.renderWidth, renderConfig.renderHeight);
         this.dlaCanvasGraphicsContext = this.dlaCanvas.getGraphicsContext2D();
 
         this.simulationStage = createDlaStage();
@@ -53,7 +47,7 @@ public class SimulationView {
 
         Pane dlaPane = new Pane(dlaCanvas);
 
-        dlaStage.setScene(new Scene(dlaPane, WIDTH, HEIGHT));
+        dlaStage.setScene(new Scene(dlaPane, renderConfig.renderWidth, renderConfig.renderHeight));
         dlaStage.setResizable(false);
         dlaStage.setTitle("Diffusion-limited Aggregation Simulation");
         return dlaStage;
@@ -61,7 +55,7 @@ public class SimulationView {
 
     public void drawSimulation(Simulation simulation) {
         dlaCanvasGraphicsContext.setFill(colorConfig.backgroundColor);
-        dlaCanvasGraphicsContext.fillRect(0, 0, WIDTH, HEIGHT);
+        dlaCanvasGraphicsContext.fillRect(0, 0, renderConfig.renderWidth, renderConfig.renderHeight);
         int[][] particleField = simulation.getParticleField();
         Point activeParticle = simulation.getActiveParticle();
 
@@ -139,6 +133,4 @@ public class SimulationView {
     private double normalizeZValue(int z, int minZ, int maxZ) {
         return (double) (z - minZ) / (maxZ - minZ);
     }
-
-
 }

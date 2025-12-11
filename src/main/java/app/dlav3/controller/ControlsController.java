@@ -26,10 +26,6 @@ public class ControlsController {
         renderController.render(simulation);
     }
 
-    public void onLiveSimulateAndRender(){
-
-    }
-
     private void syncConfigsWithControls(){
         simulationController.setSimulationConfig(controlsView.buildSimulationConfig());
         renderController.setRenderConfig(controlsView.buildRenderConfig());

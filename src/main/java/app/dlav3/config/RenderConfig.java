@@ -8,12 +8,16 @@ Parameters
  */
 
 public class RenderConfig {
+    public int renderWidth;
+    public int renderHeight;
     public int cellSize;
     public boolean renderStuckParticles;
     public boolean renderSeedParticles;
     public boolean renderActiveParticle;
 
-    public RenderConfig(int cellSize, boolean renderStuckParticles, boolean renderSeedParticles, boolean renderActiveParticle) {
+    public RenderConfig(int renderWidth, int renderHeight, int cellSize, boolean renderStuckParticles, boolean renderSeedParticles, boolean renderActiveParticle) {
+        this.renderWidth = renderWidth;
+        this.renderHeight = renderHeight;
         this.cellSize = cellSize;
         this.renderStuckParticles = renderStuckParticles;
         this.renderSeedParticles = renderSeedParticles;
@@ -21,6 +25,8 @@ public class RenderConfig {
     }
 
     public RenderConfig() {
+        renderWidth=900;
+        renderHeight=900;
         cellSize=3;
         renderStuckParticles=true;
         renderSeedParticles=false;
