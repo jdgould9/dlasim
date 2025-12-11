@@ -16,12 +16,12 @@ public class RenderController {
     public RenderController() {
         this.renderConfig = new RenderConfig();
         this.colorConfig = new ColorConfig();
-        simulationView = new SimulationView(renderConfig, colorConfig);
     }
 
     public void render(Simulation simulation) {
         simulationView.setRenderConfig(renderConfig);
         simulationView.setColorConfig(colorConfig);
+        simulationView = new SimulationView(renderConfig, colorConfig, simulation.getSimulationWidth(), simulation.getSimulationHeight());
         simulationView.drawSimulation(simulation);
         simulationView.getStage().show();
     }

@@ -28,8 +28,6 @@ import static javafx.scene.paint.Color.hsb;
 //TODO: UI
 //  Complete controls UI
 
-/// 12/10/25
-//TODO: IMPORTANT!!!!!!
 //  Complete controls UI
 //  Split controls UI into Model, View, Controller
 //  Stop control UI from freezing upon rendering
@@ -38,6 +36,7 @@ import static javafx.scene.paint.Color.hsb;
 //  Time simulation/rendering
 //  Add seed types and sizes
 //  Allow simulation to export to table
+//  Live simulate and render (animated, animate each time a cell is stuck?)
 
 
 
