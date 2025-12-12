@@ -2,6 +2,9 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+mvnw.cmd
+mvnw
+
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -11,8 +14,7 @@ target/
 *.iws
 *.iml
 *.ipr
-mvnw.cmd
-mvnw
+
 
 ### Eclipse ###
 .apt_generated

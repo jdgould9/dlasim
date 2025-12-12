@@ -23,8 +23,9 @@ public class SimulationConfig {
     public int maxRandomWalkAttempts;
     public double maxFillRatio;
     public double particleStickingProbability;
+    public SeedType seedType;
 
-    public SimulationConfig(int simulationCellSize, int simulationWidth, int simulationHeight, long randomSeed, int numberOfSeeds, long maxIterations, int maxRandomWalkAttempts, double maxFillRatio, double particleStickingProbability) {
+    public SimulationConfig(int simulationCellSize, int simulationWidth, int simulationHeight, long randomSeed, int numberOfSeeds, long maxIterations, int maxRandomWalkAttempts, double maxFillRatio, double particleStickingProbability, SeedType seedType) {
         this.simulationCellSize = simulationCellSize;
         this.simulationWidth = simulationWidth;
         this.simulationHeight = simulationHeight;
@@ -34,6 +35,7 @@ public class SimulationConfig {
         this.maxRandomWalkAttempts = maxRandomWalkAttempts;
         this.maxFillRatio = maxFillRatio;
         this.particleStickingProbability = particleStickingProbability;
+        this.seedType = seedType;
     }
 
     public SimulationConfig() {
@@ -46,6 +48,7 @@ public class SimulationConfig {
         maxRandomWalkAttempts = 2000;
         maxFillRatio = 0.3;
         particleStickingProbability = 1.0;
+        seedType = SeedType.RANDOMPOINT;
     }
 
     @Override
@@ -60,6 +63,7 @@ public class SimulationConfig {
                 ", maxRandomWalkAttempts=" + maxRandomWalkAttempts +
                 ", maxFillRatio=" + maxFillRatio +
                 ", particleStickingProbability=" + particleStickingProbability +
+                ", seedType=" + seedType +
                 '}';
     }
 }

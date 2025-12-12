@@ -117,15 +117,7 @@ public class Simulation {
     }
 
     private void placeSeed(int numSeeds) {
-        int placedSeeds = 0;
-        while (placedSeeds < numSeeds) {
-            int x = random.nextInt(simulationConfig.simulationWidth);
-            int y = random.nextInt(simulationConfig.simulationHeight);
-            if (particleField[x][y] == 0) {
-                particleField[x][y] = 1;
-                placedSeeds++;
-            }
-        }
+        Seeder.placeSeed(simulationConfig.seedType, particleField, numSeeds, simulationConfig.simulationWidth, simulationConfig.simulationHeight, random);
     }
 
     private void stickParticle(int z) {

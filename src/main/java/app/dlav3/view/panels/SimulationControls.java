@@ -40,6 +40,7 @@ public class SimulationControls {
 
         seedTypeComboBox = new ComboBox<>();
         seedTypeComboBox.getItems().setAll(SeedType.values());
+        seedTypeComboBox.getSelectionModel().selectFirst();
         randomSeedTextField = new TextField(Long.toString(simulationConfig.randomSeed));
         numberOfSeedsTextField = new TextField(Integer.toString(simulationConfig.numberOfSeeds));
     }
@@ -104,7 +105,8 @@ public class SimulationControls {
                 this.getMaxIterations(),
                 this.getMaxRandomWalkAttempts(),
                 this.getMaxFillRatio(),
-                this.getParticleStickingProbability()
+                this.getParticleStickingProbability(),
+                this.getSeedType()
         );
     }
 
@@ -142,6 +144,10 @@ public class SimulationControls {
 
     public int getNumberOfSeeds() {
         return Integer.parseInt(numberOfSeedsTextField.getText());
+    }
+
+    public SeedType getSeedType(){
+        return seedTypeComboBox.getValue();
     }
 
 

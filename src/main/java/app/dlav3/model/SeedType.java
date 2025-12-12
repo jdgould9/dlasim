@@ -5,6 +5,5 @@ public enum SeedType {
     RANDOMPOINT,
     GRID,
     CIRCLE,
-    SQUARE,
-    EDGE
+    EDGE,
 }
