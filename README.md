@@ -7,6 +7,7 @@ A JavaFX application that simulates **Diffusion-Limited Aggregation (DLA)** usin
 ## Screenshots
 
 ![DLA Simulation](screenshots/screenshot1.png)
+![DLA Simulation](screenshots/screenshot2.png)
 ![GUI](screenshots/gui1.png)
 
 ---
