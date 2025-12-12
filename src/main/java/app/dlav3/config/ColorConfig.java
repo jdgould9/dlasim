@@ -20,8 +20,19 @@ public class ColorConfig{
     public ColorConfig(){
         gradient=true;
         lowZColor=Color.WHITE;
-        highZColor=Color.RED;
-        backgroundColor=Color.BLUE;
+        highZColor=Color.ORANGE;
+        backgroundColor=Color.BLACK;
         opacity=1.0;
+    }
+
+    @Override
+    public String toString() {
+        return "ColorConfig{" +
+                "gradient=" + gradient +
+                ", lowZColor=" + lowZColor +
+                ", highZColor=" + highZColor +
+                ", backgroundColor=" + backgroundColor +
+                ", opacity=" + opacity +
+                '}';
     }
 }

@@ -8,22 +8,28 @@ Parameters
  */
 
 public class RenderConfig {
-    public int cellSize;
     public boolean renderStuckParticles;
     public boolean renderSeedParticles;
     public boolean renderActiveParticle;
 
-    public RenderConfig(int cellSize, boolean renderStuckParticles, boolean renderSeedParticles, boolean renderActiveParticle) {
-        this.cellSize = cellSize;
+    public RenderConfig(boolean renderStuckParticles, boolean renderSeedParticles, boolean renderActiveParticle) {
         this.renderStuckParticles = renderStuckParticles;
         this.renderSeedParticles = renderSeedParticles;
         this.renderActiveParticle = renderActiveParticle;
     }
 
     public RenderConfig() {
-        cellSize=3;
         renderStuckParticles=true;
         renderSeedParticles=false;
         renderActiveParticle=false;
+    }
+
+    @Override
+    public String toString() {
+        return "RenderConfig{" +
+                "renderStuckParticles=" + renderStuckParticles +
+                ", renderSeedParticles=" + renderSeedParticles +
+                ", renderActiveParticle=" + renderActiveParticle +
+                '}';
     }
 }

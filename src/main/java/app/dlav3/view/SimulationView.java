@@ -2,7 +2,6 @@ package app.dlav3.view;
 
 import app.dlav3.config.ColorConfig;
 import app.dlav3.config.RenderConfig;
-import app.dlav3.config.SimulationConfig;
 import app.dlav3.model.Simulation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -15,53 +14,33 @@ import javafx.util.Pair;
 import java.awt.*;
 
 public class SimulationView {
-    private Stage simulationStage;
+    private Stage dlaStage;
+    private int simulationCellSize;
 
-    private RenderConfig renderConfig;
-    private ColorConfig colorConfig;
-    private Canvas dlaCanvas;
-    private GraphicsContext dlaCanvasGraphicsContext;
-
-    private final int WIDTH;
-    private final int HEIGHT;
-
-    public SimulationView(RenderConfig renderConfig, ColorConfig colorConfig, int simulationWidth, int simulationHeight) {
-        this.renderConfig = renderConfig;
-        this.colorConfig = colorConfig;
-
-        this.WIDTH=simulationWidth;
-        this.HEIGHT=simulationHeight;
-        this.dlaCanvas = new Canvas(WIDTH, HEIGHT);
-        this.dlaCanvasGraphicsContext = this.dlaCanvas.getGraphicsContext2D();
-
-        this.simulationStage = createDlaStage();
+    public SimulationView() {
+        initializeDlaStage();
     }
 
-    public void setRenderConfig(RenderConfig renderConfig){
-        this.renderConfig=renderConfig;
-    }
-    public void setColorConfig(ColorConfig colorConfig){
-        this.colorConfig=colorConfig;
-    }
-
-    public Stage getStage() {
-        return simulationStage;
-    }
-
-    public Stage createDlaStage() {
-        Stage dlaStage = new Stage();
-
-        Pane dlaPane = new Pane(dlaCanvas);
-
-        dlaStage.setScene(new Scene(dlaPane, WIDTH, HEIGHT));
+    private void initializeDlaStage() {
+        dlaStage = new Stage();
         dlaStage.setResizable(false);
         dlaStage.setTitle("Diffusion-limited Aggregation Simulation");
-        return dlaStage;
     }
 
-    public void drawSimulation(Simulation simulation) {
+    public void renderSimulation(Simulation simulation, RenderConfig renderConfig, ColorConfig colorConfig) {
+        simulationCellSize = simulation.getSimulationCellSize();
+        int renderWidth = simulation.getSimulationWidth()*simulationCellSize;
+        int renderHeight = simulation.getSimulationHeight()*simulationCellSize;
+
+        Canvas dlaCanvas = new Canvas(renderWidth, renderHeight);
+        GraphicsContext dlaCanvasGraphicsContext = dlaCanvas.getGraphicsContext2D();
+        Pane dlaPane = new Pane(dlaCanvas);
+
+        dlaStage.setScene(new Scene(dlaPane, renderWidth, renderHeight));
+
         dlaCanvasGraphicsContext.setFill(colorConfig.backgroundColor);
-        dlaCanvasGraphicsContext.fillRect(0, 0, WIDTH, HEIGHT);
+        dlaCanvasGraphicsContext.fillRect(0, 0, renderWidth, renderHeight);
+
         int[][] particleField = simulation.getParticleField();
         Point activeParticle = simulation.getActiveParticle();
 
@@ -74,7 +53,9 @@ public class SimulationView {
         if (renderConfig.renderActiveParticle) {
             drawActiveParticle(activeParticle, dlaCanvasGraphicsContext);
         }
+        dlaStage.show();
     }
+
 
     private void drawStuckParticles(int[][] particleField, Pair<Integer, Integer> minZMaxZ, ColorConfig colorConfig, GraphicsContext gc) {
         int minZ = minZMaxZ.getKey();
@@ -87,7 +68,7 @@ public class SimulationView {
 
                     javafx.scene.paint.Color gradientColor = calculateGradientColor(colorConfig.lowZColor, colorConfig.highZColor, normalizedZ, colorConfig.opacity);
                     gc.setFill(gradientColor);
-                    gc.fillRect(r * renderConfig.cellSize, c * renderConfig.cellSize, renderConfig.cellSize, renderConfig.cellSize);
+                    gc.fillRect(r * simulationCellSize, c * simulationCellSize, simulationCellSize, simulationCellSize);
                 }
             }
         }
@@ -108,7 +89,7 @@ public class SimulationView {
                 int z = particleField[r][c];
                 if (z == 1) {
                     gc.setFill(javafx.scene.paint.Color.RED);
-                    gc.fillRect(r * renderConfig.cellSize, c * renderConfig.cellSize, renderConfig.cellSize, renderConfig.cellSize);
+                    gc.fillRect(r * simulationCellSize, c * simulationCellSize, simulationCellSize, simulationCellSize);
                 }
             }
         }
@@ -116,7 +97,7 @@ public class SimulationView {
 
     private void drawActiveParticle(Point activeParticle, GraphicsContext gc) {
         gc.setFill(Color.BLUE);
-        gc.fillRect(activeParticle.x * renderConfig.cellSize, activeParticle.y * renderConfig.cellSize, renderConfig.cellSize, renderConfig.cellSize);
+        gc.fillRect(activeParticle.x * simulationCellSize, activeParticle.y * simulationCellSize, simulationCellSize, simulationCellSize);
     }
 
     private Pair<Integer, Integer> findMinZAndMaxZ(int[][] particleField) {
@@ -139,6 +120,63 @@ public class SimulationView {
     private double normalizeZValue(int z, int minZ, int maxZ) {
         return (double) (z - minZ) / (maxZ - minZ);
     }
-
-
 }
+
+/*
+    private Stage simulationStage;
+
+    private RenderConfig renderConfig;
+    private ColorConfig colorConfig;
+    private Canvas dlaCanvas;
+    private GraphicsContext dlaCanvasGraphicsContext;
+
+    public SimulationView(RenderConfig renderConfig, ColorConfig colorConfig) {
+        this.renderConfig = renderConfig;
+        this.colorConfig = colorConfig;
+
+        this.dlaCanvas = new Canvas(renderConfig.renderWidth, renderConfig.renderHeight);
+        this.dlaCanvasGraphicsContext = this.dlaCanvas.getGraphicsContext2D();
+
+        this.simulationStage = createDlaStage();
+    }
+
+    public void setRenderConfig(RenderConfig renderConfig){
+        this.renderConfig=renderConfig;
+    }
+    public void setColorConfig(ColorConfig colorConfig){
+        this.colorConfig=colorConfig;
+    }
+
+    public Stage getStage() {
+        return simulationStage;
+    }
+
+    public Stage createDlaStage() {
+        Stage dlaStage = new Stage();
+
+        Pane dlaPane = new Pane(dlaCanvas);
+
+        dlaStage.setScene(new Scene(dlaPane, renderConfig.renderWidth, renderConfig.renderHeight));
+        dlaStage.setResizable(false);
+        dlaStage.setTitle("Diffusion-limited Aggregation Simulation");
+        return dlaStage;
+    }
+
+    public void drawSimulation(Simulation simulation) {
+        dlaCanvasGraphicsContext.setFill(colorConfig.backgroundColor);
+        dlaCanvasGraphicsContext.fillRect(0, 0, renderConfig.renderWidth, renderConfig.renderHeight);
+        int[][] particleField = simulation.getParticleField();
+        Point activeParticle = simulation.getActiveParticle();
+
+        if (renderConfig.renderStuckParticles) {
+            drawStuckParticles(particleField, findMinZAndMaxZ(particleField), colorConfig, dlaCanvasGraphicsContext);
+        }
+        if (renderConfig.renderSeedParticles) {
+            drawSeeds(particleField, dlaCanvasGraphicsContext);
+        }
+        if (renderConfig.renderActiveParticle) {
+            drawActiveParticle(activeParticle, dlaCanvasGraphicsContext);
+        }
+    }
+
+     */

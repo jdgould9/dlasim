@@ -1,18 +1,16 @@
 package app.dlav3.model;
 
-import app.dlav3.SimulationApp;
 import app.dlav3.config.SimulationConfig;
 
 import java.awt.*;
 import java.util.Random;
 
 public class Simulation {
-
     /*
-        Simulation
-            particleField = 2d array of particles, 0 = empty, 1 = dead particle, 2 = seed
-            activeParticle = 2d point, keeps track of the active randomly walking particle
-         */
+    Simulation
+        particleField = 2d array of particles, 0 = empty, 1 = dead particle, 2 = seed
+        activeParticle = 2d point, keeps track of the active randomly walking particle
+     */
     private int[][] particleField;
     private Point activeParticle;
     private Random random;
@@ -47,13 +45,20 @@ public class Simulation {
         placeActiveParticle();
     }
 
-    public int getSimulationHeight(){
-        return this.simulationConfig.simulationHeight;
+    public int getSimulationWidth(){
+        return simulationConfig.simulationWidth;
     }
 
-    public int getSimulationWidth(){
-        return this.simulationConfig.simulationWidth;
+    public int getSimulationHeight(){
+        return simulationConfig.simulationHeight;
     }
+
+    public int getSimulationCellSize(){
+        return simulationConfig.simulationCellSize;
+    }
+
+
+
     public void dla() {
         while (!isFieldFull() && checkParameterMaxIterations() && checkParameterMaxFillRatio()) {
             int z = detectCollision();
@@ -69,8 +74,10 @@ public class Simulation {
                     resetCurrentRandomWalkAttempts();
                 }
             }
-            if (currentIteration % 100_000 == 0) {
-                System.out.println("Progress: " + currentIteration);
+            if (currentIteration % 100_000_000 == 0) {
+                System.out.println("Fill ratio: " + getFillRatio());
+                System.out.println("Iteration: " + currentIteration);
+
             }
             currentIteration++;
         }

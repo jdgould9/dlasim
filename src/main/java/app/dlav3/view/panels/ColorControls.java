@@ -1,11 +1,11 @@
-package app.dlav3.view;
+package app.dlav3.view.panels;
 
 import app.dlav3.config.ColorConfig;
-import app.dlav3.config.SimulationConfig;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -56,38 +56,44 @@ public class ColorControls {
 
     public HBox getLayout(){
         //Render text and description
-        VBox renderTextVBox = new VBox();
-        renderTextVBox.setPadding(new Insets(30, 10, 30, 10));
-        Text renderText = new Text("Render");
+        VBox colorTextVBox = new VBox();
+        colorTextVBox.setPadding(new Insets(30, 10, 30, 10));
+        Text renderText = new Text("Color");
         renderText.setFont(new Font("Georgia", 36));
-        Text renderDescriptionText = new Text("Control render parameters");
+        Text renderDescriptionText = new Text("Control color parameters");
         renderDescriptionText.setFont(new Font("Georgia", 16));
-        renderTextVBox.getChildren().addAll
+        colorTextVBox.getChildren().addAll
                 (
                         renderText, renderDescriptionText
                 );
 
 
-        //Render right controls
-        VBox renderRightControlsVBox = new VBox();
-        renderRightControlsVBox.setPadding(new Insets(30, 30, 30, 30));
-        renderRightControlsVBox.getChildren().addAll
+        VBox colorLeftControlsVBox = new VBox();
+        colorLeftControlsVBox.setPadding(new Insets(30, 30, 30, 30));
+        colorLeftControlsVBox.getChildren().addAll
                 (
                         gradientPreview, new Text("Gradient"), gradientCheckBox,
                         new Text("Low z color"), lowZColorPicker,
-                        new Text("High z color"), highZColorPicker,
+                        new Text("High z color"), highZColorPicker
+                );
+
+        VBox colorRightControlsVBox = new VBox();
+        colorRightControlsVBox.setPadding(new Insets(30, 30, 30, 30));
+        colorRightControlsVBox.getChildren().addAll
+                (
                         new Text("Background color"), backgroundColorPicker,
                         new Text("Opacity"), opacityTextField
                 );
 
         //Render HBox
-        HBox renderHBox = new HBox();
-        renderHBox.getChildren().addAll(
-                renderTextVBox,
-
-                renderRightControlsVBox
+        HBox colorHBox = new HBox();
+        colorHBox.getChildren().addAll(
+                colorTextVBox,
+                colorLeftControlsVBox,
+                colorRightControlsVBox
         );
-        return renderHBox;
+
+        return colorHBox;
     }
 
     public boolean getGradient() {

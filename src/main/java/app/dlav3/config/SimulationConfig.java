@@ -13,7 +13,8 @@ Parameters
     maxFillRatio = max ratio of empty to full particles before stopping. A fill ratio of 1.0 means all available particles (minus seed particles) are filled (-1.0 to disable)
     particleStickProbability = probability that a particle should stick to another (0.0 to 1.0)
  */
-public class SimulationConfig{
+public class SimulationConfig {
+    public int simulationCellSize;
     public int simulationWidth;
     public int simulationHeight;
     public long randomSeed;
@@ -23,7 +24,8 @@ public class SimulationConfig{
     public double maxFillRatio;
     public double particleStickingProbability;
 
-    public SimulationConfig(int simulationWidth, int simulationHeight, long randomSeed, int numberOfSeeds, long maxIterations, int maxRandomWalkAttempts, double maxFillRatio, double particleStickingProbability) {
+    public SimulationConfig(int simulationCellSize, int simulationWidth, int simulationHeight, long randomSeed, int numberOfSeeds, long maxIterations, int maxRandomWalkAttempts, double maxFillRatio, double particleStickingProbability) {
+        this.simulationCellSize = simulationCellSize;
         this.simulationWidth = simulationWidth;
         this.simulationHeight = simulationHeight;
         this.randomSeed = randomSeed;
@@ -34,15 +36,31 @@ public class SimulationConfig{
         this.particleStickingProbability = particleStickingProbability;
     }
 
-    public SimulationConfig () {
-        simulationWidth=300;
-        simulationHeight=300;
-        randomSeed=-1L;
-        numberOfSeeds=100;
-        maxIterations=400_000_000L;
-        maxRandomWalkAttempts=2000;
-        maxFillRatio=0.3;
-        particleStickingProbability=1.0;
+    public SimulationConfig() {
+        simulationCellSize = 2;
+        simulationWidth = 400;
+        simulationHeight = 400;
+        randomSeed = -1L;
+        numberOfSeeds = 10;
+        maxIterations = 4000_000_000L;
+        maxRandomWalkAttempts = 2000;
+        maxFillRatio = 0.3;
+        particleStickingProbability = 1.0;
+    }
+
+    @Override
+    public String toString() {
+        return "SimulationConfig{" +
+                "simulationCellSize=" + simulationCellSize +
+                ", simulationWidth=" + simulationWidth +
+                ", simulationHeight=" + simulationHeight +
+                ", randomSeed=" + randomSeed +
+                ", numberOfSeeds=" + numberOfSeeds +
+                ", maxIterations=" + maxIterations +
+                ", maxRandomWalkAttempts=" + maxRandomWalkAttempts +
+                ", maxFillRatio=" + maxFillRatio +
+                ", particleStickingProbability=" + particleStickingProbability +
+                '}';
     }
 }
 

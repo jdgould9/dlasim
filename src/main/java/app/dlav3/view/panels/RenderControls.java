@@ -1,19 +1,18 @@
-package app.dlav3.view;
+package app.dlav3.view.panels;
 
 import app.dlav3.config.RenderConfig;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class RenderControls {
-    public TextField renderHeightTextField;
-    public TextField renderWidthTextField;
-    public TextField cellSizeTextField;
     public CheckBox renderStuckCellsCheckBox;
     public CheckBox renderSeedCellsCheckBox;
     public CheckBox renderActiveCellsCheckBox;
@@ -23,7 +22,6 @@ public class RenderControls {
     }
 
     public void initializeControls(RenderConfig renderConfig) {
-        cellSizeTextField = new TextField(Integer.toString(renderConfig.cellSize));
         renderStuckCellsCheckBox = new CheckBox();
         renderStuckCellsCheckBox.setSelected(renderConfig.renderStuckParticles);
         renderSeedCellsCheckBox = new CheckBox();
@@ -34,17 +32,10 @@ public class RenderControls {
 
     public RenderConfig buildRenderConfigFromControls() {
         return new RenderConfig(
-                this.getCellSize(),
                 this.getRenderStuckCells(),
                 this.getRenderSeedCells(),
                 this.getRenderActiveCells()
         );
-    }
-
-
-
-    public int getCellSize() {
-        return Integer.parseInt(cellSizeTextField.getText());
     }
 
     public boolean getRenderStuckCells() {
@@ -72,26 +63,24 @@ public class RenderControls {
                         renderText, renderDescriptionText
                 );
 
-        //Render left controls
-        VBox renderLeftControlsVBox = new VBox();
-        renderLeftControlsVBox.setPadding(new Insets(30, 30, 30, 30));
-        renderLeftControlsVBox.getChildren().addAll
+        //Render controls
+        VBox renderControlsVBox = new VBox();
+        renderControlsVBox.setPadding(new Insets(30, 30, 30, 30));
+        renderControlsVBox.getChildren().addAll
                 (
-                        new Text("Cell size"), cellSizeTextField,
                         new Text("Render stuck cells"), renderStuckCellsCheckBox,
                         new Text("Render seed cells"), renderSeedCellsCheckBox,
                         new Text("Render active cell"), renderActiveCellsCheckBox
                 );
 
-
-
         //Render HBox
         HBox renderHBox = new HBox();
         renderHBox.getChildren().addAll(
                 renderTextVBox,
-                renderLeftControlsVBox
-
+                renderControlsVBox
         );
+        renderHBox.setBorder(Border.stroke(Color.BLACK));
+
         return renderHBox;
     }
 }

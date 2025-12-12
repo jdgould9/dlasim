@@ -3,9 +3,8 @@ package app.dlav3;
 import app.dlav3.config.ColorConfig;
 import app.dlav3.config.RenderConfig;
 import app.dlav3.config.SimulationConfig;
-import app.dlav3.controller.ControlsController;
-import app.dlav3.controller.RenderController;
-import app.dlav3.controller.SimulationController;
+import app.dlav3.controller.AppController;
+import app.dlav3.model.Simulation;
 import app.dlav3.view.ControlsView;
 import app.dlav3.view.SimulationView;
 import javafx.application.Application;
@@ -28,6 +27,8 @@ import static javafx.scene.paint.Color.hsb;
 //TODO: UI
 //  Complete controls UI
 
+/// 12/10/25
+//TODO: IMPORTANT!!!!!!
 //  Complete controls UI
 //  Split controls UI into Model, View, Controller
 //  Stop control UI from freezing upon rendering
@@ -36,15 +37,21 @@ import static javafx.scene.paint.Color.hsb;
 //  Time simulation/rendering
 //  Add seed types and sizes
 //  Allow simulation to export to table
-//  Live simulate and render (animated, animate each time a cell is stuck?)
 
 
 
 public class SimulationApp extends Application {
     @Override
     public void start(Stage dlaStage) throws Exception {
-        SimulationController simulationController = new SimulationController();
-        RenderController renderController = new RenderController();
-        ControlsController controlsController = new ControlsController(simulationController, renderController);
+        //SimulationConfig simulationConfig = new SimulationConfig();
+        //Simulation sim = new Simulation(simulationConfig);
+        //sim.dla();
+        //SimulationView sv = new SimulationView();
+        //sv.renderSimulation(sim, new RenderConfig(), new ColorConfig());
+        AppController appController = new AppController();
+
+
+
+
     }
 }

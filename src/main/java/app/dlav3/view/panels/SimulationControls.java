@@ -1,20 +1,23 @@
-package app.dlav3.view;
+package app.dlav3.view.panels;
 
 import app.dlav3.config.SimulationConfig;
 import app.dlav3.model.SeedType;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.List;
-
 
 public class SimulationControls {
+    public TextField simulationWidthTextField;
+    public TextField simulationHeightTextField;
+    public TextField simulationCellSizeTextField;
     public TextField maxIterationsTextField;
     public TextField maxRandomWalkAttemptsTextField;
     public TextField maxFillRatioTextField;
@@ -30,6 +33,9 @@ public class SimulationControls {
     }
 
     private void initializeControls(SimulationConfig simulationConfig) {
+        simulationWidthTextField = new TextField(Integer.toString(simulationConfig.simulationWidth));
+        simulationHeightTextField = new TextField(Integer.toString(simulationConfig.simulationHeight));
+        simulationCellSizeTextField = new TextField(Integer.toString(simulationConfig.simulationCellSize));
         maxIterationsTextField = new TextField(Long.toString(simulationConfig.maxIterations));
         maxRandomWalkAttemptsTextField = new TextField(Integer.toString(simulationConfig.maxRandomWalkAttempts));
         maxFillRatioTextField = new TextField(Double.toString(simulationConfig.maxFillRatio));
@@ -59,10 +65,12 @@ public class SimulationControls {
         simulationLeftControlsVBox.setPadding(new Insets(30, 30, 30, 30));
         simulationLeftControlsVBox.getChildren().addAll
                 (
+                        new Text("Simulation width"), simulationWidthTextField,
+                        new Text("Simulation height"), simulationHeightTextField,
+                        new Text("Simulation cell size"), simulationCellSizeTextField,
                         new Text("Max iterations"), maxIterationsTextField,
-                        new Text("Max random walk attempts"), maxRandomWalkAttemptsTextField,
-                        new Text("Max fill ratio"), maxFillRatioTextField,
-                        new Text("Particle sticking probability"), particleStickingProbabilityTextField
+                        new Text("Max random walk attempts"), maxRandomWalkAttemptsTextField
+
                 );
 
         //Simulation right controls
@@ -70,6 +78,8 @@ public class SimulationControls {
         simulationRightControlsVBox.setPadding(new Insets(30, 30, 30, 30));
         simulationRightControlsVBox.getChildren().addAll
                 (
+                        new Text("Max fill ratio"), maxFillRatioTextField,
+                        new Text("Particle sticking probability"), particleStickingProbabilityTextField,
                         new Text("Seed type"), seedTypeComboBox,
                         new Text("Random seed"), randomSeedTextField,
                         new Text("Number of seeds"), numberOfSeedsTextField
@@ -83,13 +93,15 @@ public class SimulationControls {
                         simulationLeftControlsVBox,
                         simulationRightControlsVBox
                 );
+
         return simulationHBox;
     }
 
     public SimulationConfig buildSimulationConfigFromControls() {
         return new SimulationConfig(
-                900,
-                900,
+                this.getSimulationCellSize(),
+                this.getSimulationWidth(),
+                this.getSimulationHeight(),
                 this.getRandomSeed(),
                 this.getNumberOfSeeds(),
                 this.getMaxIterations(),
@@ -99,6 +111,15 @@ public class SimulationControls {
         );
     }
 
+    public int getSimulationWidth(){
+        return Integer.parseInt(simulationWidthTextField.getText());
+    }
+    public int getSimulationHeight(){
+        return Integer.parseInt(simulationHeightTextField.getText());
+    }
+    public int getSimulationCellSize(){
+        return Integer.parseInt(simulationCellSizeTextField.getText());
+    }
     public long getMaxIterations(){
         return Long.parseLong(maxIterationsTextField.getText());
     }

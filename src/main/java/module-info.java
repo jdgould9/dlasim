@@ -15,6 +15,6 @@ module app.dlav3 {
     exports app.dlav3.model;
     opens app.dlav3.model to javafx.fxml;
     exports app.dlav3;
-    exports app.dlav3.controller;
-    opens app.dlav3.controller to javafx.fxml;
+    exports app.dlav3.view.panels;
+    opens app.dlav3.view.panels to javafx.fxml;
 }
