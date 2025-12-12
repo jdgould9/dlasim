@@ -5,11 +5,8 @@ import app.dlav3.model.SeedType;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -28,7 +25,7 @@ public class SimulationControls {
     public TextField numberOfSeedsTextField;
 
 
-    public SimulationControls(SimulationConfig simulationConfig){
+    public SimulationControls(SimulationConfig simulationConfig) {
         initializeControls(simulationConfig);
     }
 
@@ -47,7 +44,7 @@ public class SimulationControls {
         numberOfSeedsTextField = new TextField(Integer.toString(simulationConfig.numberOfSeeds));
     }
 
-    public HBox getLayout(){
+    public HBox getLayout() {
         //Simulation text and description
         VBox simulationTextVBox = new VBox();
         simulationTextVBox.setPadding(new Insets(30, 10, 30, 10));
@@ -111,31 +108,39 @@ public class SimulationControls {
         );
     }
 
-    public int getSimulationWidth(){
+    public int getSimulationWidth() {
         return Integer.parseInt(simulationWidthTextField.getText());
     }
-    public int getSimulationHeight(){
+
+    public int getSimulationHeight() {
         return Integer.parseInt(simulationHeightTextField.getText());
     }
-    public int getSimulationCellSize(){
+
+    public int getSimulationCellSize() {
         return Integer.parseInt(simulationCellSizeTextField.getText());
     }
-    public long getMaxIterations(){
+
+    public long getMaxIterations() {
         return Long.parseLong(maxIterationsTextField.getText());
     }
-    public int getMaxRandomWalkAttempts(){
+
+    public int getMaxRandomWalkAttempts() {
         return Integer.parseInt(maxRandomWalkAttemptsTextField.getText());
     }
-    public double getMaxFillRatio(){
+
+    public double getMaxFillRatio() {
         return Double.parseDouble(maxFillRatioTextField.getText());
     }
-    public double getParticleStickingProbability(){
+
+    public double getParticleStickingProbability() {
         return Double.parseDouble(particleStickingProbabilityTextField.getText());
     }
-    public long getRandomSeed(){
+
+    public long getRandomSeed() {
         return Long.parseLong(randomSeedTextField.getText());
     }
-    public int getNumberOfSeeds(){
+
+    public int getNumberOfSeeds() {
         return Integer.parseInt(numberOfSeedsTextField.getText());
     }
 

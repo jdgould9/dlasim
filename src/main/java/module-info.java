@@ -5,6 +5,7 @@ module app.dlav3 {
     requires java.sql;
     requires javafx.graphics;
     requires javafx.base;
+    requires javafx.swing;
 
 
     opens app.dlav3 to javafx.fxml;

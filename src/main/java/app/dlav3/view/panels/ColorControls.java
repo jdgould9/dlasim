@@ -2,10 +2,8 @@ package app.dlav3.view.panels;
 
 import app.dlav3.config.ColorConfig;
 import javafx.geometry.Insets;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,7 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class ColorControls {
-    public CheckBox gradientCheckBox;
+
     public ColorPicker lowZColorPicker;
     public ColorPicker highZColorPicker;
     public ColorPicker backgroundColorPicker;
@@ -31,22 +29,32 @@ public class ColorControls {
     }
 
     private void initializeControls(ColorConfig colorConfig) {
-        gradientCheckBox = new CheckBox();
-        gradientCheckBox.setSelected(colorConfig.gradient);
-        lowZColorPicker = new ColorPicker(colorConfig.lowZColor);
-        highZColorPicker = new ColorPicker(colorConfig.highZColor);
-        backgroundColorPicker = new ColorPicker(colorConfig.backgroundColor);
-        opacityTextField = new TextField(Double.toString(colorConfig.opacity));
+
         gradientPreview = new Rectangle(125, 30);
-        Stop[] stops = new Stop[]{new Stop(0, Color.BLUE), new Stop(1, Color.RED)};
+        Stop[] stops = new Stop[]{new Stop(0, colorConfig.highZColor), new Stop(1, colorConfig.lowZColor)};
         linearGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.REFLECT, stops);
         gradientPreview.setFill(linearGradient);
 
+        lowZColorPicker = new ColorPicker(colorConfig.lowZColor);
+        lowZColorPicker.setOnAction(event -> {
+            stops[1] = new Stop(1, getLowZColor());
+            linearGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.REFLECT, stops);
+            gradientPreview.setFill(linearGradient);
+        });
+
+        highZColorPicker = new ColorPicker(colorConfig.highZColor);
+        highZColorPicker.setOnAction(event -> {
+            stops[0] = new Stop(0, getHighZColor());
+            linearGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.REFLECT, stops);
+            gradientPreview.setFill(linearGradient);
+        });
+
+        backgroundColorPicker = new ColorPicker(colorConfig.backgroundColor);
+        opacityTextField = new TextField(Double.toString(colorConfig.opacity));
     }
 
     public ColorConfig buildColorConfigFromControls() {
         return new ColorConfig(
-                this.getGradient(),
                 this.getLowZColor(),
                 this.getHighZColor(),
                 this.getBackgroundColor(),
@@ -54,7 +62,7 @@ public class ColorControls {
         );
     }
 
-    public HBox getLayout(){
+    public HBox getLayout() {
         //Render text and description
         VBox colorTextVBox = new VBox();
         colorTextVBox.setPadding(new Insets(30, 10, 30, 10));
@@ -72,17 +80,18 @@ public class ColorControls {
         colorLeftControlsVBox.setPadding(new Insets(30, 30, 30, 30));
         colorLeftControlsVBox.getChildren().addAll
                 (
-                        gradientPreview, new Text("Gradient"), gradientCheckBox,
-                        new Text("Low z color"), lowZColorPicker,
-                        new Text("High z color"), highZColorPicker
+                        new Text("Opacity"), opacityTextField,
+                        new Text("Gradient"), gradientPreview
                 );
 
         VBox colorRightControlsVBox = new VBox();
         colorRightControlsVBox.setPadding(new Insets(30, 30, 30, 30));
         colorRightControlsVBox.getChildren().addAll
                 (
-                        new Text("Background color"), backgroundColorPicker,
-                        new Text("Opacity"), opacityTextField
+
+                        new Text("Low z color"), lowZColorPicker,
+                        new Text("High z color"), highZColorPicker,
+                        new Text("Background color"), backgroundColorPicker
                 );
 
         //Render HBox
@@ -94,10 +103,6 @@ public class ColorControls {
         );
 
         return colorHBox;
-    }
-
-    public boolean getGradient() {
-        return gradientCheckBox.isSelected();
     }
 
     public Color getLowZColor() {

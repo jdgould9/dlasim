@@ -27,10 +27,10 @@ public class SimulationView {
         dlaStage.setTitle("Diffusion-limited Aggregation Simulation");
     }
 
-    public void renderSimulation(Simulation simulation, RenderConfig renderConfig, ColorConfig colorConfig) {
+    public Canvas renderSimulation(Simulation simulation, RenderConfig renderConfig, ColorConfig colorConfig) {
         simulationCellSize = simulation.getSimulationCellSize();
-        int renderWidth = simulation.getSimulationWidth()*simulationCellSize;
-        int renderHeight = simulation.getSimulationHeight()*simulationCellSize;
+        int renderWidth = simulation.getSimulationWidth() * simulationCellSize;
+        int renderHeight = simulation.getSimulationHeight() * simulationCellSize;
 
         Canvas dlaCanvas = new Canvas(renderWidth, renderHeight);
         GraphicsContext dlaCanvasGraphicsContext = dlaCanvas.getGraphicsContext2D();
@@ -54,6 +54,7 @@ public class SimulationView {
             drawActiveParticle(activeParticle, dlaCanvasGraphicsContext);
         }
         dlaStage.show();
+        return dlaCanvas;
     }
 
 

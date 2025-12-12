@@ -18,8 +18,8 @@ public class Simulation {
 
     private static final int[][] DIRECTIONS = {
             {-1, -1}, {0, -1}, {1, -1},
-            {-1, 0},           {1, 0},
-            {-1, 1},  {0, 1},  {1, 1}
+            {-1, 0}, {1, 0},
+            {-1, 1}, {0, 1}, {1, 1}
     };
 
     /*
@@ -45,18 +45,17 @@ public class Simulation {
         placeActiveParticle();
     }
 
-    public int getSimulationWidth(){
+    public int getSimulationWidth() {
         return simulationConfig.simulationWidth;
     }
 
-    public int getSimulationHeight(){
+    public int getSimulationHeight() {
         return simulationConfig.simulationHeight;
     }
 
-    public int getSimulationCellSize(){
+    public int getSimulationCellSize() {
         return simulationConfig.simulationCellSize;
     }
-
 
 
     public void dla() {
@@ -84,7 +83,6 @@ public class Simulation {
         System.out.println("Ending fill ratio: " + getFillRatio());
         System.out.println("Ending iteration: " + currentIteration);
     }
-
 
 
     private void setRandomSeed() {
@@ -173,7 +171,6 @@ public class Simulation {
         int y = activeParticle.y;
 
 
-
         for (int[] direction : DIRECTIONS) {
             int dx = direction[0];
             int dy = direction[1];
@@ -196,7 +193,7 @@ public class Simulation {
         return activeParticle;
     }
 
-    public int getCurrentNumDeadParticles(){
+    public int getCurrentNumDeadParticles() {
         return currentNumDeadParticles;
     }
 }

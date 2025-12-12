@@ -10,10 +10,8 @@ import app.dlav3.view.panels.SimulationControls;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -23,6 +21,7 @@ public class ControlsView {
     private final RenderControls renderControls;
     private final ColorControls colorControls;
     private final AppController appController;
+    private Stage controlsStage;
 
     public ControlsView(AppController appController) {
         simulationControls = new SimulationControls(new SimulationConfig());
@@ -32,14 +31,18 @@ public class ControlsView {
         buildControlsStage();
     }
 
+    public Stage getStage() {
+        return controlsStage;
+    }
+
     private void buildControlsStage() {
-        Stage controlsStage = new Stage();
+        controlsStage = new Stage();
         VBox controlsVBox = new VBox();
 
         controlsVBox.getChildren().addAll
-           (
-                  simulationControls.getLayout(), renderControls.getLayout(), colorControls.getLayout(), getActionControlsLayout()
-          );
+                (
+                        simulationControls.getLayout(), renderControls.getLayout(), colorControls.getLayout(), getActionControlsLayout()
+                );
 
         Scene controlsScene = new Scene(controlsVBox, 650, 710);
         controlsStage.setScene(controlsScene);
@@ -48,29 +51,23 @@ public class ControlsView {
         controlsStage.show();
     }
 
-    private HBox getActionControlsLayout(){
+    private HBox getActionControlsLayout() {
         HBox simulateRenderSaveHBox = new HBox();
-
         Button simulateAndRenderButton = new Button("Simulate and render");
-        //simulateAndRenderButton.setOnMouseClicked(e->{controlsController.onSimulateAndRender();});
         simulateAndRenderButton.setOnMouseClicked(event -> {
             appController.onSimulateAndRender();
         });
-
         Button saveRenderButton = new Button("Save render");
-
         saveRenderButton.setOnMouseClicked(mouseEvent -> {
 
+            appController.onSaveRender();
         });
-
         simulateRenderSaveHBox.setAlignment(Pos.BOTTOM_CENTER);
         simulateRenderSaveHBox.getChildren().addAll
                 (
                         simulateAndRenderButton, saveRenderButton
                 );
-
         return simulateRenderSaveHBox;
-
     }
 
     public SimulationConfig buildSimulationConfig() {

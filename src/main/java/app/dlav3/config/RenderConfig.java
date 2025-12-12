@@ -1,11 +1,4 @@
 package app.dlav3.config;
-/*
-Parameters
-    renderWidth = SCREEN_WIDTH
-    renderHeight = SCREEN_HEIGHT
-    renderSeeds = whether or not to render seed particles
-    renderActiveParticle = whether or not to render active particle
- */
 
 public class RenderConfig {
     public boolean renderStuckParticles;
@@ -19,9 +12,9 @@ public class RenderConfig {
     }
 
     public RenderConfig() {
-        renderStuckParticles=true;
-        renderSeedParticles=false;
-        renderActiveParticle=false;
+        renderStuckParticles = true;
+        renderSeedParticles = false;
+        renderActiveParticle = false;
     }
 
     @Override
